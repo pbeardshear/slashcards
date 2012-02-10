@@ -1,8 +1,14 @@
+// Includes
 var connect = require('connect');
-
-// Create server
-var server = connect.createServer(connect.logger(), connect.static(__dirname));
-server.listen(3000, 'localhost');
+try {	
+	// Create server
+	var server = connect.createServer(connect.logger(), connect.static(__dirname));
+	server.listen(3000, 'localhost');
+}
+catch (ex) {
+	// Log the error
+	console.error(ex);
+}
 
 //
 //	Documentation
