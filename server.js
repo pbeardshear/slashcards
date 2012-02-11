@@ -1,51 +1,50 @@
 // Includes
+var express = require('express');
 var connect = require('connect');
-try {	
-	// Create server
-	var server = connect.createServer(connect.logger(), connect.static(__dirname));
-	server.listen(3000, 'localhost');
+var mongoose = require('mongoose');
+var schema = require('./schema.js');
+
+try {
+        // Define the models
+    mongoose.connect('mongodb://localhost/flash');
+    schema.defineModels(mongoose, function(){
+	    User = mongoose.model('User');
+	    FlashCard = mongoose.model('FlashCard');
+	    FlashCardList = mongoose.model('FlashCardList');
+	});
+    
+    // Create server
+    var app = express.createServer(express.logger(), express.bodyParser(), express.static(__dirname));
+    app.set('views', __dirname + '/views');
+
+    /* These request should be specific to the user but, not sure that
+       to do that at the moment so it will return the global values */
+    app.get('/method/flashcards', function(request, response){
+	    response.send( FlashCardList.find() );
+	});
+
+    app.get('/method/flashcards/:id', function(request, response){
+	    response.send( FlashCard.find({_id:request.body.id}) );
+	});
+
+    app.post('/method/flashcards', function(request, response){
+	    console.log( request.body.data );
+	    var FlashCards = []
+	    for( var i=0; i<request.body.data.length; i++){
+		FlashCards.push( (new FlashCard(request.body.data[i])).save() );
+	    }
+
+	    (new FlashCardList({name: request.body.name, kind: request.body.type, FlashCards: FlashCards})).save();
+			
+	});
+
+    app.listen(process.env.PORT || 3000, function(){
+	    console.log("Server Started");
+	});
+    
+    
 }
 catch (ex) {
 	// Log the error
 	console.error(ex);
 }
-
-//
-//	Documentation
-//
-// Require: User accounts
-// Require: List of flash cards
-// Require: Test types
-//
-// ** Information in brackets is optional
-// ---------------------------------------------------------------------------------------------------------
-// User Accounts
-// ---------------------------------------------------------------------------------------------------------
-//	Consist of username, password combination
-//	Has several server objects associated with account:
-//		- List of created flash card sets
-//
-// ---------------------------------------------------------------------------------------------------------
-// Flash Card List
-// ---------------------------------------------------------------------------------------------------------
-//	Contains the following information: id, setName, count, flashCardData	
-//	A list of flash card objects that represents a contained set
-//
-// ---------------------------------------------------------------------------------------------------------
-// Flash Card
-// ---------------------------------------------------------------------------------------------------------
-//	Contains the following information: id, bodyData, answer, [title, hint]
-//		bodyData - a string containing the question data for the flashcard
-//		answer - a string containing the answer to the question OR an object mapping blanks to solutions
-//		title - a string representing the title of the flashcard
-//		hint - a string that represents a hint to for the question
-//
-// ---------------------------------------------------------------------------------------------------------
-// Test Types
-// ---------------------------------------------------------------------------------------------------------
-//	Contains the following information: type
-//	Represents the type of answer method to use for the flashcards
-//	Current allowed types are: fill-in-the-blank, Q/A
-//
-
-
