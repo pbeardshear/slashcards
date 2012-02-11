@@ -36,7 +36,32 @@ $(document).ready(function () {
 	Flashcard.init({
 		front: '#create .front',
 		back: '#create .back',
+		count: '#create .count',
+		commitButton: '#create .actionButton',
 		textarea: true
 	});
 	Flashcard.next();
+	
+	$('#reviewFlashcards').bind('click', function () {
+		// Retrieve list of flashcard sets
+		$.ajax({
+			url: 'http://localhost:3000/method/flashcards',
+			type: 'GET',
+			crossDomain: true,
+			success: function (data, status) { },
+			error: function (xhr, status, err) { }
+		});
+	});
+	
+	$('#reviewOptions .accordionButton').bind('click', function () {
+		var id = null;
+		// Retrieve the list of flashcards
+		$.ajax({
+			url: 'http://localhost:3000/method/flashcards/:id',
+			type: 'GET',
+			crossDomain: true,
+			success: function (data, status) { },
+			error: function (xhr, status, err) { }
+		});
+	});
 });

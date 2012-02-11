@@ -1,7 +1,8 @@
-body { margin: 0px; }
+body { margin: 0px; font-family: Trebuchet MS, sans-serif; font-size: 12px; }
 
 .actionHeader { display: block; border: 1px solid #000; }
 #initialAction { display: block; }
-#flashcards textarea { resize: none; font-family: Monaco, Trebuchet MS, sans-serif; margin: 27px 0px 0px 0px; height: 167px; width: 394px; background-color: transparent; line-height: 27px; border: none; vertical-align: middle;}
+#flashcards textarea { resize: none; font-family: Monaco, Trebuchet MS, sans-serif; margin: 0px; height: 167px; width: 394px; background-color: transparent; line-height: 27px; border: none; vertical-align: middle;}
 #flashcards .flashcard { height: 200px; width: 400px; border: 1px solid #000; background-image: url('flashcard.gif'); }
+#flashcards .flashcard .title { height: 27px; font-size: 14px; line-height: 27px; }
 #flashcards .flashcard.back { display: none; }

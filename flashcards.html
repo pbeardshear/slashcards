@@ -34,16 +34,36 @@
 				</p>
 				<p>Use the left and right arrow keys to move through cards</p>
 			</div>
-			<div id="create" class="actionHeader">
-				<div class="flashcard front">
-					<textarea></textarea>
+			<div class="cardWrapper" id="create">
+				<div>
+					<span>Name:</span><input type="text" id="setName" />
 				</div>
-				<div class="flashcard back">
-					<textarea></textarea>
+				<div class="actionHeader">
+					<div class="flashcard front">
+						<div class="title">Question</div>
+						<textarea></textarea>
+					</div>
+					<div class="flashcard back">
+						<div class="title">Answer</div>
+						<textarea></textarea>
+					</div>
 				</div>
+				<div class="cardInfo">
+					<div class="count"></div>
+				</div>
+				<input type="button" value="Finish" class="actionButton" />
 			</div>
-			<div id="review" class="actionHeader">
-				<p>This is review.</p>
+			<div class="cardWrapper" id="review">
+				<div class="actionHeader">
+					<p>This is review.</p>
+				</div>
+				<div class="answer">
+					<label>Answer:</label><input type="text" name="answer" />
+				</div>
+				<div class="cardInfo">
+					<div class="count"></div>
+					<div class="numCorrect"></div>
+				</div>
 			</div>
 		</div>
 	</div>

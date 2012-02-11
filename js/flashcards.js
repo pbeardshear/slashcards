@@ -1,6 +1,6 @@
 var Flashcard = (function () {
 	var _flashcards = [];
-	var _selectors = { front: null, back: null, frontText: null, backText: null };
+	var _selectors = { front: null, back: null, frontText: null, backText: null, count: null };
 	var active = -1;
 	var sides = ['question', 'answer'];
 	var activeSide = null;	
@@ -15,10 +15,12 @@ var Flashcard = (function () {
 		init: function (options) {
 			_selectors.front = options.front;
 			_selectors.back = options.back;
+			_selectors.count = options.count;
 			if (options.textarea) {
 				_selectors.frontText = options.front + ' textarea';
 				_selectors.backText = options.back + ' textarea';
 			}
+			// Maintain closure reference to this
 			var self = this;
 			// Bind some actions
 			$(window).bind('keydown', function (e) {
@@ -31,6 +33,13 @@ var Flashcard = (function () {
 				}
 				// return false;
 			});
+			
+			if (options.commitButton) {
+				$(options.commitButton).bind('click', function () {
+					alert("Committing!");
+					// self.commit();
+				});
+			}
 		},
 		// Change the currently visible side of the flashcard
 		flip: function () {
@@ -75,6 +84,9 @@ var Flashcard = (function () {
 			if (card) {
 				$(_selectors.frontText).val(card.question);
 				$(_selectors.backText).val(card.answer);
+				if (_selectors.count) {
+					$(_selectors.count).text('Card: ' + ([active + 1, _flashcards.length].join(' / ')));
+				}
 				if (activeSide == 0) {
 					$(_selectors.front).show();
 					$(_selectors.frontText).focus();
@@ -108,10 +120,11 @@ var Flashcard = (function () {
 		// Otherwise, save it in localstorage
 		commit: function () {
 			$.ajax({
-				url: 'localhost:3000/flashcards.html',
+				url: 'http://localhost:3000/method/flashcards',
 				type: 'POST',
-				success: function () { },
-				failure: function () { }
+				data: { data: [], type: '', name: '' },
+				success: function (data, status) { },
+				error: function (xhr, status, err) { }
 			});
 		}
 	};
