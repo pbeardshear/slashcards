@@ -18,25 +18,29 @@ var Accordion = (function () {
 		// Bind the click event to the header
 		var accordionSelector = [o.container, o.header].join(' ');
 		$(accordionSelector).bind('click', function () {
+			console.log(accordionSelector);
 			_this.toggle(true);
 		});
 	}
 	accordion.prototype.toggle = function () {
-		// Toggling one accordion should untoggle all others
-		if (Accordion.groupBySets || Accordion.allowMultiple) {
-			var set = Accordion.groupBySets && this.set ? _sets[this.set] : _accordions;
-			for (var i = 0; i < set.length; i++) {
-				set[i].close();
-			}
-			
-			if (this.setChild) {
-				this.closeChildren();
-			}
-		}
 		// Toggle this accordion open
 		var accordionBodySelector = [this.container, this.body].join(' ');
 		$(accordionBodySelector).animate({ height: 'toggle' }, 200);
 		this.open = !this.open;
+		
+		// Toggling one accordion should untoggle all others
+		if (Accordion.groupBySets || !Accordion.allowMultiple) {
+			var set = Accordion.groupBySets && this.set ? _sets[this.set] : _accordions;
+			var self = set.indexOf(this);
+			for (var i = 0; i < set.length; i++) {
+				if (i != self) {
+					set[i].close();
+				}
+			}
+			if (this.setChild) {
+				this.closeChildren();
+			}
+		}
 	};
 	// Generally toggle is called in most cases for accordions
 	// These methods exist to force accordions into particular state regardless of their current position
