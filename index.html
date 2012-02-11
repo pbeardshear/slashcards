@@ -1,8 +1,56 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
 <head>
+	<title>SlashCards</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+	<script type="text/javascript" src="js/accordion.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+	<link rel="stylesheet" type="text/css" href="main.css" />
 </head>
 <body>
-	<p>This is a document.</p>
+	<div id="container">
+		<div class="header" id="mainHeader">
+			<div class="logo"><span>SlashCards</span><span class="catchphrase">&lt;Fast Flash Cards&gt;</span></div>
+		</div>
+		<div class="content">
+			<div id="beginning">
+				<div id="signIn">
+					<p class="actionHeader">Have an account?</p>
+					<div class="accordionHeader">
+						<a class="button">Log in</a>
+					</div>
+					<div class="accordionBody">
+						<form>
+							<label>Username</label><input type="text" name="username" />
+							<label>Password</label><input type="password" name="password" />
+							<input type="submit" value="Go!" class="submitButton" />
+						</form>
+					</div>
+				</div>
+				<div id="registration">
+					<p class="actionHeader">No? Sign up here.</p>
+					<p class="actionSubHeader">Signing up let's you save your flashcards forever.</p>
+					<div class="accordionHeader">
+						<a class="button">Sign up</a>
+					</div>
+					<div class="accordionBody">
+						<form>
+							<label>Username</label><input type="text" name="username" />
+							<label>Password</label><input type="password" name="password" />
+							<label>Confirm Password</label><input type="password" name="passwordConfirm" />
+							<input type="submit" value="Go!" class="submitButton" />
+						</form>
+					</div>
+				</div>
+				<div id="skip">
+					<p class="actionHeader">No thanks, I just want to make some flashcards.</p>
+					<form method="link" action="flashcards.html">
+						<input type="submit" value="Skip" id="skipButton" />
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="footer" id="mainFooter"></div>
+	</div>
 </body>
 </html>

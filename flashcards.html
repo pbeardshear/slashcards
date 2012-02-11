@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>SlashCards - Flashcards</title>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+	<script type="text/javascript" src="js/accordion.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<link rel="stylesheet" type="text/css" href="flashcards.css" />
+</head>
+<body>
+	<div id="container">
+		<div class="actionHeader" id="initialAction">
+			<input type="button" id="createFlashcards" value="Make Flashcards" class="accordionButton" />
+			<input type="button" id="reviewFlashcards" value="Review Flashcards" class="accordionButton" />
+		</div>
+		<div class="actionHeader optionsHeader" id="createOptions">
+			<p>How are you going to review with these flashcards?</p>
+			<input type="radio" value="fill-in-the-blank" name="testType" /><label>Fill-in-the-blank</label><br />
+			<input type="radio" value="q/a" name="testType" /><label>Question/Answer</label><br />
+			<input type="button" value="Make some flashcards!" class="accordionButton" />
+		</div>
+		<div class="actionHeader optionsHeader" id="reviewOptions">
+			<p>Select a set of flashcards to review:</p>
+			<input type="radio" name="flashcards" /><label>Psych 2 Midterm 1</label><br />
+			<input type="radio" name="flashcards" /><label>CS 160 Final</label><br />
+			<input type="button" value="Review!" class="accordionButton" />
+		</div>
+		<div id="flashcards">
+			<div id="createFlashcards" class="actionHeader">
+				<p>This is create.</p>
+			</div>
+			<div id="reviewFlashcards" class="actionHeader">
+				<p>This is review.</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

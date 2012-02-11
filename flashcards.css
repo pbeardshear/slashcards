@@ -1,0 +1,4 @@
+body { margin: 0px; }
+
+.actionHeader { display: none; border: 1px solid #000; }
+#initialAction { display: block; }
