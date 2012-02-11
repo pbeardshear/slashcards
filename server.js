@@ -20,22 +20,23 @@ try {
     /* These request should be specific to the user but, not sure that
        to do that at the moment so it will return the global values */
     app.get('/method/flashcards', function(request, response){
-	    response.send( FlashCardList.find() );
+	    FlashCardList.find({}, function(er, x){
+		    response.send({data: x});
+		});
 	});
 
     app.get('/method/flashcards/:id', function(request, response){
-	    response.send( FlashCard.find({_id:request.body.id}) );
+	    FlashCard.findOne({_id:request.params.id}, function(e, x){
+		    response.send({data: x});
+		});
 	});
 
     app.post('/method/flashcards', function(request, response){
-	    console.log( request.body.data );
 	    var FlashCards = []
 	    for( var i=0; i<request.body.data.length; i++){
 		FlashCards.push( (new FlashCard(request.body.data[i])).save() );
 	    }
-
 	    (new FlashCardList({name: request.body.name, kind: request.body.type, FlashCards: FlashCards})).save();
-			
 	});
 
     app.listen(process.env.PORT || 3000, function(){
