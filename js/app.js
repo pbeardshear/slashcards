@@ -21,14 +21,22 @@ $(document).ready(function () {
 	// Flashcards set
 	Accordion.create({
 		header: '#createOptions .accordionButton',
-		body: '#flashcards #createFlashcards',
+		body: '#flashcards #create',
 		container: '#container',
 		set: 'flashcards'
 	});
 	Accordion.create({
 		header: '#reviewOptions .accordionButton',
-		body: '#flashcards #reviewFlashcards',
+		body: '#flashcards #review',
 		container: '#container',
 		set: 'flashcards'
 	});
+	
+	// Bind events for flash cards
+	Flashcard.init({
+		front: '#create .front',
+		back: '#create .back',
+		textarea: true
+	});
+	Flashcard.next();
 });
