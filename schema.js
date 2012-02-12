@@ -18,26 +18,31 @@ exports.defineModels = function defineModels( mongoose, cb ){
 	});
     
     FlashCard = new Schema({
-	    bodyData: {
-		type: String
+	    body: {
+		type: String,
+		required: true
 	    },
 	    answer: {
-		type: String
+		type: String,
+		required: true
 	    },
 	    hint: {
-		type: String
-	    },
-	    kind: {
 		type: String
 	    }
 	});
     
     FlashCardList = new Schema({
 	    setName: {
-		type: String
+		type: String,
+		required: true
 	    },
 	    FlashCards:{
-		type: [FlashCard]
+		type: [FlashCard],
+		required: true
+	    },
+	    kind: {
+		type: String,
+		required: true
 	    }
 	});
 
@@ -48,7 +53,7 @@ exports.defineModels = function defineModels( mongoose, cb ){
     mongoose.model('User', User);
     mongoose.model('FlashCard', FlashCard);
     mongoose.model('FlashCardList', FlashCardList);
-    cb();
+    if(cb)cb();
 };
 
 //
