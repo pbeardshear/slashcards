@@ -13,7 +13,7 @@ var Flashcard = (function () {
 	}
 	// Return a representation of this class that is used for db storage
 	flashcard.prototype.marshall = function () {
-		return { question: this.question, answer: this.answer };
+		return { body: this.question, answer: this.answer };
 	};
 	
 	return {
