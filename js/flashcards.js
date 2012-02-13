@@ -9,7 +9,12 @@ var Flashcard = (function () {
 	function flashcard (question, answer) {
 		this.question = question;
 		this.answer = answer;
+		this.hint = null;
 	}
+	// Return a representation of this class that is used for db storage
+	flashcard.prototype.marshall = function () {
+		return { question: this.question, answer: this.answer };
+	};
 	
 	return {
 		init: function (options) {
@@ -36,8 +41,14 @@ var Flashcard = (function () {
 			
 			if (options.commitButton) {
 				$(options.commitButton).bind('click', function () {
-					alert("Committing!");
-					// self.commit();
+					// Save the current flashcard
+					self.save();
+					// Perform some validation here, before calling commit
+					var name = $('#setName').val();
+					var type = $('#createOptions [name="testType"]:checked').val();
+					if (name && type && _flashcards.length > 0) {
+						self.commit(name, type);
+					}
 				});
 			}
 		},
@@ -118,11 +129,16 @@ var Flashcard = (function () {
 		},
 		// Send the results up to the server, if this user is logged in
 		// Otherwise, save it in localstorage
-		commit: function () {
+		commit: function (setName, questionType) {
+			// Build up the data list
+			var data = [];
+			for (var i = 0; i < _flashcards.length; i++) {
+				data.push(_flashcards[i].marshall());
+			}
 			$.ajax({
 				url: 'http://localhost:3000/method/flashcards',
 				type: 'POST',
-				data: { data: [], type: '', name: '' },
+				data: { data: data, type: questionType, name: setName },
 				success: function (data, status) { },
 				error: function (xhr, status, err) { }
 			});
