@@ -21,6 +21,7 @@ try {
        to do that at the moment so it will return the global values */
     app.get('/method/flashcards', function(request, response){
 	    FlashCardList.find({}, function(er, x){
+		    console.log(x);
 		    response.send({data: x});
 		});
 	});
@@ -32,11 +33,12 @@ try {
 	});
 
     app.post('/method/flashcards', function(request, response){
+	    console.log( request.body );
 	    var FlashCards = []
 	    for( var i=0; i<request.body.data.length; i++){
 		FlashCards.push( (new FlashCard(request.body.data[i])).save() );
 	    }
-	    (new FlashCardList({name: request.body.name, kind: request.body.type, FlashCards: FlashCards})).save();
+	    (new FlashCardList({setName: request.body.name, kind: request.body.type, FlashCards: FlashCards})).save();
 	});
 
     app.listen(process.env.PORT || 3000, function(){
