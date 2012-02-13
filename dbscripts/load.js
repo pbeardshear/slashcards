@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var schema = require('../schema.js');
-
+var $ = require('jquery');
 mongoose.connect('mongodb://localhost/flash');
 
 schema.defineModels(mongoose, function(){
@@ -9,28 +9,20 @@ schema.defineModels(mongoose, function(){
 	FlashCardList = mongoose.model('FlashCardList');
     });
 
-var a = new FlashCard({body:"what is your name",
-	    answer:"bobo",
-	    hint:"not bobo"
-    });
+(new FlashCardList({setName:"Physics", kind:"Q/A",
+	    FlashCards: [
+			 new FlashCard({body:"what is 3+3",
+				     answer:"6",
+				     hint:"add them"}).save(),
+			 new FlashCard({body:"what is 3*3",
+				     answer:"9"}).save()
+			 ]})).save()
 
-var b = new FlashCard({body:"what is your last name",
-	    answer:"bobog"
-    });
-
-a.save(function(err) {
-	if(err) console.log(err);
-	console.log("saved a"); }); 
-
-b.save(function(err) {
-	if(err) console.log(err);
-	console.log("saved b"); }); 
-
-c = new FlashCardList({setName:"people's names",
-		       FlashCards: [a,b],
-		       kind: "Q/A"
-    });
-
-c.save(function(err) {
-	if(err) console.log(err);
-	console.log("saved c"); });
+(new FlashCardList({setName:"Pycschology", kind:"Q/A",
+	    FlashCards: [
+			 new FlashCard({body:"what is 3+3",
+				     answer:"6",
+				     hint:"add them"}).save(),
+			 new FlashCard({body:"what is 3*3",
+				     answer:"9"}).save()
+			 ]})).save()
