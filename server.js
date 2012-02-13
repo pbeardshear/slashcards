@@ -33,11 +33,12 @@ try {
 	});
 
     app.post('/method/flashcards', function(request, response){
-	    console.log( request.body );
 	    var FlashCards = []
 	    for( var i=0; i<request.body.data.length; i++){
-		FlashCards.push( (new FlashCard(request.body.data[i])).save() );
-	    }
+		var temp = new FlashCard(request.body.data[i]);
+		FlashCards.push(temp);
+		temp.save();
+	    };
 	    (new FlashCardList({setName: request.body.name, kind: request.body.type, FlashCards: FlashCards})).save();
 	});
 
