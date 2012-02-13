@@ -40,6 +40,7 @@ try {
 		temp.save();
 	    };
 	    (new FlashCardList({setName: request.body.name, kind: request.body.type, FlashCards: FlashCards})).save();
+		response.send({ success: true });
 	});
 
     app.listen(process.env.PORT || 3000, function(){

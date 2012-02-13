@@ -5,6 +5,7 @@
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
 	<script type="text/javascript" src="js/accordion.js"></script>
 	<script type="text/javascript" src="js/flashcards.js"></script>
+	<script type="text/javascript" src="js/review.js"></script>
 	<script type="text/javascript" src="js/app.js"></script>
 	<link rel="stylesheet" type="text/css" href="flashcards.css" />
 </head>
@@ -27,14 +28,13 @@
 			<input type="button" value="Review!" class="accordionButton" />
 		</div>
 		<div id="flashcards">
-			<div id="instructions">
-				<p>
-					Use the right arrow key to create a new flash card.  Use the left arrow key to look at previous flash cards.<br />
-					Press tab to move between the question and answer for a flash card.
-				</p>
-				<p>Use the left and right arrow keys to move through cards</p>
-			</div>
 			<div class="cardWrapper" id="create">
+				<div id="instructions">
+					<p>
+						Use the right arrow key to create a new flash card.  Use the left arrow key to look at previous flash cards.<br />
+						Press tab to move between the question and answer for a flash card.
+					</p>
+				</div>
 				<div>
 					<span>Name:</span><input type="text" id="setName" />
 				</div>
@@ -55,10 +55,28 @@
 			</div>
 			<div class="cardWrapper" id="review">
 				<div class="actionHeader">
-					<p>This is review.</p>
+					<div class="flashcard front">
+						<div class="title">Question</div>
+						<textarea disabled="true"></textarea>
+					</div>
+					<div class="flashcard hint">
+						<div class="title">Hint</div>
+						<textarea disabled="true"></textarea>
+					</div>
+					<div class="flashcard back">
+						<div class="title">Answer</div>
+						<textarea disabled="true"></textarea>
+					</div>
 				</div>
 				<div class="answer">
-					<label>Answer:</label><input type="text" name="answer" />
+					<p id="result"></p>
+					<form id="submitAnswer">
+						<label>Answer:</label><input type="text" name="answer" />
+						<input type="submit" value="Go!" />
+					</form>
+					<input type="button" value="Skip" id="skipButton" />
+					<input type="button" value="Show Hint" id="hintButton" />
+					<input type="button" value="Show Answer" id="answerButton" />
 				</div>
 				<div class="cardInfo">
 					<div class="count"></div>

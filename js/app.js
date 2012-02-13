@@ -1,6 +1,6 @@
 
 // Create the dom objects representing the flashcard sets
-function loadFlashcardSets (data) {
+function loadFlashcardSets (data, flashCards) {
 	var container = $('#flashcardSets');
 	// Unload the current sets
 	container.children().remove();
@@ -9,6 +9,7 @@ function loadFlashcardSets (data) {
 	var template = '<input type="radio" name="flashcards" value="{id}"><label>{name}</label><br />';
 	for (var i = 0; i < data.length; i++) {
 		sets += template.replace('{id}', data[i]._id).replace('{name}', data[i].setName);
+		flashCards[data[i]._id] = { flashcards: data[i].FlashCards, type: data[i].kind };
 	}
 	
 	if (!sets) {
@@ -71,6 +72,7 @@ $(document).ready(function () {
 	// Create a blank flashcard for the user to edit
 	Flashcard.next();
 	
+	var flashCards = {};
 	$('#reviewFlashcards').bind('click', function () {
 		// Retrieve list of flashcard sets
 		$.ajax({
@@ -81,23 +83,16 @@ $(document).ready(function () {
 				console.log('got success');
 				console.log(data);
 				// Load the data
-				loadFlashcardSets(data.data);
+				loadFlashcardSets(data.data, flashCards);
 			},
 			error: function (xhr, status, err) { }
 		});
 	});
 	
 	$('#reviewOptions .accordionButton').bind('click', function () {
-		var id = null;
-		// Retrieve the list of flashcards
-		$.ajax({
-			url: 'http://localhost:3000/method/flashcards/:id',
-			type: 'GET',
-			crossDomain: true,
-			success: function (data, status) {
-				console.log('retrieved flashcards');
-			},
-			error: function (xhr, status, err) { }
-		});
+		var id = $('#flashcardSets input:checked').val();
+		var selected = flashCards[id];
+		ReviewSession.init(selected.type, selected.flashcards, true);
+		ReviewSession.start();
 	});
 });

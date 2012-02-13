@@ -6,3 +6,17 @@ body { margin: 0px; font-family: Trebuchet MS, sans-serif; font-size: 12px; }
 #flashcards .flashcard { height: 200px; width: 400px; border: 1px solid #000; background-image: url('flashcard.gif'); }
 #flashcards .flashcard .title { height: 27px; font-size: 14px; line-height: 27px; }
 #flashcards .flashcard.back { display: none; }
+
+#createOptions { display: none; }
+#reviewOptions { display: none; }
+#create { display: none; }
+#review { display: none; }
+
+#review .actionHeader { height: 222px; }
+#review .actionHeader .flashcard { position: relative; float: left; margin: 10px; }
+#review .actionHeader .flashcard.hint { display: none; }
+#review .actionHeader .flashcard.back { display: none; }
+
+#result.correct { color: green; }
+#result.incorrect { color: red; }
+#result.finish { color: black; }
